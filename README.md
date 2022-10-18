@@ -26,6 +26,3 @@ Run:
 `npm i`  
 `npm run dev:server`  
 Then go to your bot and test your keysets.
-
-Please note, if you change your config in Notion, you'll have to restart your bot to fetch the updates.  
-Notion does not support Webhooks yet, and long polling is not implemented for this bot.
