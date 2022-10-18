@@ -9,7 +9,7 @@ export class Bot {
   }
 
   async start(queries) {
-    const configQueries = queries ?? (await this.notionClient.getConfig()).queries;
+    const configQueries = queries ?? (await this.notionClient.getConfig())?.queries;
 
     if (!configQueries) {
       console.error('Config is missing');
