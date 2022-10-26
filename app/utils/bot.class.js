@@ -35,7 +35,9 @@ export class Bot {
       return messageIncludesAllKeys && message.toLowerCase().includes('финик');
     }
 
-    for (const { keySets, response } of configQueries) {
+    for (let { keySets, response } of configQueries) {
+      keySets = keySets.filter(Boolean);
+
       for (const keyString of keySets) {
         const trigger = createTrigger(keyString.split(', '));
 
