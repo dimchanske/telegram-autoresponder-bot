@@ -43,7 +43,13 @@ export class Bot {
 
         this.bot.hears(trigger, ctx => {
           try {
-            ctx.reply(response, { reply_to_message_id : ctx?.message?.message_id });
+            ctx.reply(
+              response,
+              {
+                reply_to_message_id: ctx?.message?.message_id,
+                disable_web_page_preview: true,
+              }
+            );
           } catch(e) {
             console.error(e);
           }
