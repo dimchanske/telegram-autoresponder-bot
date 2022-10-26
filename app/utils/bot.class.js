@@ -43,7 +43,7 @@ export class Bot {
 
         this.bot.hears(trigger, ctx => {
           try {
-            ctx.reply(
+            ctx.replyWithHTML(
               response,
               {
                 reply_to_message_id: ctx?.message?.message_id,
