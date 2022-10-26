@@ -5,7 +5,6 @@ export class Bot {
     this.bot = new Telegraf(botToken);
     this.botToken = botToken;
     this.notionClient = notionClient;
-    this.notionPollingInterval = null;
   }
 
   async start(queries) {
@@ -51,12 +50,12 @@ export class Bot {
     }
 
     try {
-      this.bot.launch();
+      await this.bot.launch();
     } catch(e) {
       console.error(e);
     }
 
-    this.notionPollingInterval = setInterval(() => {
+    setTimeout(() => {
       this.reInitializeOnConfigChanged();
     }, process.env.NOTION_POLLING_INTERVAL);
   }
@@ -73,11 +72,14 @@ export class Bot {
     if (config.hasConfigChanged) {
       console.log('Config changed, reinitializing');
       await this.reInitialize(config.queries);
+    } else {
+      setTimeout(() => {
+        this.reInitializeOnConfigChanged();
+      }, process.env.NOTION_POLLING_INTERVAL);
     }
   }
 
   async reInitialize(queries) {
-    clearInterval(this.notionPollingInterval);
     this.bot.stop('Config changed, need to revalidate');
     this.bot = new Telegraf(this.botToken);
     await this.start(queries);
